@@ -1,0 +1,94 @@
+/*PROGRAMA JOC DE PROVA 4 DE LA PRACTICA
+
+  Cal copiar el codi al script PracticaCAP
+  al final del tot i comentar el programa
+  base que es proporciona.
+*/
+
+var functionToDo = 0;
+function make_thread_thunk(name, thread_system) {
+	if (functionToDo === 0) {
+		function fibonacci() {
+			var fib = [0, 1];
+			print('in thread',name,'; fibonacci(0) = 0');
+			print('in thread',name,'; fibonacci(1) = 1');
+			for (let i = 2; i < 15; i += 1) {
+				var nextFib = fib[0] + fib[1];
+				print('in thread', name, 'fibonacci(',i,') =',nextFib);
+				fib[0] = fib[1];
+				fib[1] = nextFib;
+				thread_system.relinquish();
+			}
+			print('thread',name,'finished');
+			thread_system.quit();
+		};
+		functionToDo++;
+		return fibonacci;
+	}
+	else if (functionToDo === 1) {
+		function squares() {
+			for (let i = 0; i < 10; i += 1) {
+				print('in thread',name,';',i,'*',i,'=',i*i);
+				thread_system.relinquish();
+			}
+			print('thread',name,'finished');
+			thread_system.quit();
+		};
+		functionToDo++;
+		return squares;
+	}
+	else if (functionToDo === 2) {
+		function threads() {
+			for (let i = 0; i < 5; i += 1) {
+				print('in thread',name,'; I say hello');
+				if (i%2 == 0)thread_system.relinquish();
+			}
+			print('thread',name,'finished');
+			thread_system.quit();
+		};
+		functionToDo = 0;
+		return threads;
+	}
+}
+var thread_sys = make_thread_system();
+thread_sys.spawn(make_thread_thunk('a', thread_sys));
+thread_sys.spawn(make_thread_thunk('b', thread_sys));
+thread_sys.spawn(make_thread_thunk('c', thread_sys));
+thread_sys.start_threads();
+
+/*SORTIDA DEL JOC DE PROVA
+
+in thread a ; fibonacci(0) = 0
+in thread a ; fibonacci(1) = 1
+in thread a fibonacci( 2 ) = 1
+in thread b ; 0 * 0 = 0
+in thread c ; I say hello
+in thread a fibonacci( 3 ) = 2
+in thread b ; 1 * 1 = 1
+in thread c ; I say hello
+in thread c ; I say hello
+in thread a fibonacci( 4 ) = 3
+in thread b ; 2 * 2 = 4
+in thread c ; I say hello
+in thread c ; I say hello
+in thread a fibonacci( 5 ) = 5
+in thread b ; 3 * 3 = 9
+thread c finished
+in thread a fibonacci( 6 ) = 8
+in thread b ; 4 * 4 = 16
+in thread a fibonacci( 7 ) = 13
+in thread b ; 5 * 5 = 25
+in thread a fibonacci( 8 ) = 21
+in thread b ; 6 * 6 = 36
+in thread a fibonacci( 9 ) = 34
+in thread b ; 7 * 7 = 49
+in thread a fibonacci( 10 ) = 55
+in thread b ; 8 * 8 = 64
+in thread a fibonacci( 11 ) = 89
+in thread b ; 9 * 9 = 81
+in thread a fibonacci( 12 ) = 144
+thread b finished
+in thread a fibonacci( 13 ) = 233
+in thread a fibonacci( 14 ) = 377
+thread a finished
+*/

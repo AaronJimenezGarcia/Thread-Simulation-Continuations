@@ -1,0 +1,10 @@
+Solució:
+false
+No fa res
+true
+true
+true
+true
+true
+true
+true

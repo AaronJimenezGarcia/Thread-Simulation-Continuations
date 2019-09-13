@@ -1,0 +1,151 @@
+/*PROGRAMA JOC DE PROVA 1 DE LA PRACTICA
+
+  Cal copiar el codi al script PracticaCAP
+  al final del tot i comentar el programa
+  base que es proporciona.
+*/
+
+var table = 0;
+function make_thread_thunk(name, thread_system) {
+	function multiplicationTables() {
+		if (table < 10) {
+			print('Multiplication table of', table);
+			for (let j = 0; j < 10; j += 1) {
+				print('in thread',name,';',table,'*',j,'=',table*j);
+			}
+			table++;
+			thread_system.relinquish();
+			multiplicationTables();
+		}
+		else {
+			print('thread',name,'finished');
+			thread_system.quit();
+		}
+	};
+	return multiplicationTables;
+}
+
+var thread_sys = make_thread_system();
+thread_sys.spawn(make_thread_thunk('a', thread_sys));
+thread_sys.spawn(make_thread_thunk('b', thread_sys));
+thread_sys.spawn(make_thread_thunk('c', thread_sys));
+thread_sys.spawn(make_thread_thunk('d', thread_sys));
+thread_sys.start_threads();
+
+/*SORTIDA DEL JOC DE PROVA
+
+Multiplication table of 0
+in thread a ; 0 * 0 = 0
+in thread a ; 0 * 1 = 0
+in thread a ; 0 * 2 = 0
+in thread a ; 0 * 3 = 0
+in thread a ; 0 * 4 = 0
+in thread a ; 0 * 5 = 0
+in thread a ; 0 * 6 = 0
+in thread a ; 0 * 7 = 0
+in thread a ; 0 * 8 = 0
+in thread a ; 0 * 9 = 0
+Multiplication table of 1
+in thread b ; 1 * 0 = 0
+in thread b ; 1 * 1 = 1
+in thread b ; 1 * 2 = 2
+in thread b ; 1 * 3 = 3
+in thread b ; 1 * 4 = 4
+in thread b ; 1 * 5 = 5
+in thread b ; 1 * 6 = 6
+in thread b ; 1 * 7 = 7
+in thread b ; 1 * 8 = 8
+in thread b ; 1 * 9 = 9
+Multiplication table of 2
+in thread c ; 2 * 0 = 0
+in thread c ; 2 * 1 = 2
+in thread c ; 2 * 2 = 4
+in thread c ; 2 * 3 = 6
+in thread c ; 2 * 4 = 8
+in thread c ; 2 * 5 = 10
+in thread c ; 2 * 6 = 12
+in thread c ; 2 * 7 = 14
+in thread c ; 2 * 8 = 16
+in thread c ; 2 * 9 = 18
+Multiplication table of 3
+in thread d ; 3 * 0 = 0
+in thread d ; 3 * 1 = 3
+in thread d ; 3 * 2 = 6
+in thread d ; 3 * 3 = 9
+in thread d ; 3 * 4 = 12
+in thread d ; 3 * 5 = 15
+in thread d ; 3 * 6 = 18
+in thread d ; 3 * 7 = 21
+in thread d ; 3 * 8 = 24
+in thread d ; 3 * 9 = 27
+Multiplication table of 4
+in thread a ; 4 * 0 = 0
+in thread a ; 4 * 1 = 4
+in thread a ; 4 * 2 = 8
+in thread a ; 4 * 3 = 12
+in thread a ; 4 * 4 = 16
+in thread a ; 4 * 5 = 20
+in thread a ; 4 * 6 = 24
+in thread a ; 4 * 7 = 28
+in thread a ; 4 * 8 = 32
+in thread a ; 4 * 9 = 36
+Multiplication table of 5
+in thread b ; 5 * 0 = 0
+in thread b ; 5 * 1 = 5
+in thread b ; 5 * 2 = 10
+in thread b ; 5 * 3 = 15
+in thread b ; 5 * 4 = 20
+in thread b ; 5 * 5 = 25
+in thread b ; 5 * 6 = 30
+in thread b ; 5 * 7 = 35
+in thread b ; 5 * 8 = 40
+in thread b ; 5 * 9 = 45
+Multiplication table of 6
+in thread c ; 6 * 0 = 0
+in thread c ; 6 * 1 = 6
+in thread c ; 6 * 2 = 12
+in thread c ; 6 * 3 = 18
+in thread c ; 6 * 4 = 24
+in thread c ; 6 * 5 = 30
+in thread c ; 6 * 6 = 36
+in thread c ; 6 * 7 = 42
+in thread c ; 6 * 8 = 48
+in thread c ; 6 * 9 = 54
+Multiplication table of 7
+in thread d ; 7 * 0 = 0
+in thread d ; 7 * 1 = 7
+in thread d ; 7 * 2 = 14
+in thread d ; 7 * 3 = 21
+in thread d ; 7 * 4 = 28
+in thread d ; 7 * 5 = 35
+in thread d ; 7 * 6 = 42
+in thread d ; 7 * 7 = 49
+in thread d ; 7 * 8 = 56
+in thread d ; 7 * 9 = 63
+Multiplication table of 8
+in thread a ; 8 * 0 = 0
+in thread a ; 8 * 1 = 8
+in thread a ; 8 * 2 = 16
+in thread a ; 8 * 3 = 24
+in thread a ; 8 * 4 = 32
+in thread a ; 8 * 5 = 40
+in thread a ; 8 * 6 = 48
+in thread a ; 8 * 7 = 56
+in thread a ; 8 * 8 = 64
+in thread a ; 8 * 9 = 72
+Multiplication table of 9
+in thread b ; 9 * 0 = 0
+in thread b ; 9 * 1 = 9
+in thread b ; 9 * 2 = 18
+in thread b ; 9 * 3 = 27
+in thread b ; 9 * 4 = 36
+in thread b ; 9 * 5 = 45
+in thread b ; 9 * 6 = 54
+in thread b ; 9 * 7 = 63
+in thread b ; 9 * 8 = 72
+in thread b ; 9 * 9 = 81
+thread c finished
+thread d finished
+thread a finished
+thread b finished
+*/
