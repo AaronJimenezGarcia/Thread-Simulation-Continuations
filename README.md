@@ -102,7 +102,7 @@ On pathJar es el path del jar JavaScript, nameJar és el nom del jar JavaScript 
 
 ### Desenvolupadors
 
-Aarón Jiménez García: A cargo de la programación. 
+Aarón Jiménez García 
 
 ### Notes e Informació Personal
 
